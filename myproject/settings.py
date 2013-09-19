@@ -6,7 +6,7 @@ import private_settings
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_NAME = os.path.basename(PROJECT_DIR)
 
-DEBUG = not True
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 if DEBUG:

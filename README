@@ -1,1 +1,10 @@
 Template for a Django project.
+
+Simply clone this repository to create your new project
+    git clone https://github.com/suriya/django-project-template.git new-fancy-project.git
+
+The template comes with
+* A requirements.txt file to get your virtualenv started (instructions in README.deploy)
+* Sqlite DB defined for DEBUG mode
+* static/ and media/ directories
+* A myproject/templates/ directory for global templates, with a base.html file.
