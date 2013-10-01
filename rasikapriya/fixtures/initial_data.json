@@ -1,0 +1,138 @@
+[
+{
+  "pk": 1, 
+  "model": "rasikapriya.instrument", 
+  "fields": {
+    "slug": "vocal", 
+    "name": "Vocal"
+  }
+},
+{
+  "pk": 2, 
+  "model": "rasikapriya.instrument", 
+  "fields": {
+    "slug": "violin", 
+    "name": "Violin"
+  }
+},
+{
+  "pk": 3, 
+  "model": "rasikapriya.instrument", 
+  "fields": {
+    "slug": "mridangam", 
+    "name": "Mridangam"
+  }
+},
+{
+  "pk": 4, 
+  "model": "rasikapriya.instrument", 
+  "fields": {
+    "slug": "kanjira", 
+    "name": "Kanjira"
+  }
+},
+{
+  "pk": 5, 
+  "model": "rasikapriya.instrument", 
+  "fields": {
+    "slug": "ghatam", 
+    "name": "Ghatam"
+  }
+},
+{
+  "pk": 6, 
+  "model": "rasikapriya.instrument", 
+  "fields": {
+    "slug": "morsing", 
+    "name": "Morsing"
+  }
+},
+{
+  "pk": 7, 
+  "model": "rasikapriya.instrument", 
+  "fields": {
+    "slug": "flute", 
+    "name": "Flute"
+  }
+},
+{
+  "pk": 8, 
+  "model": "rasikapriya.instrument", 
+  "fields": {
+    "slug": "veena", 
+    "name": "Veena"
+  }
+},
+{
+  "pk": 9, 
+  "model": "rasikapriya.instrument", 
+  "fields": {
+    "slug": "chitravina", 
+    "name": "Chitravina"
+  }
+},
+{
+  "pk": 10, 
+  "model": "rasikapriya.instrument", 
+  "fields": {
+    "slug": "keyboard", 
+    "name": "Keyboard"
+  }
+},
+{
+  "pk": 11, 
+  "model": "rasikapriya.instrument", 
+  "fields": {
+    "slug": "guitar", 
+    "name": "Guitar"
+  }
+},
+{
+  "pk": 12, 
+  "model": "rasikapriya.instrument", 
+  "fields": {
+    "slug": "mandolin", 
+    "name": "Mandolin"
+  }
+},
+{
+  "pk": 13, 
+  "model": "rasikapriya.instrument", 
+  "fields": {
+    "slug": "saxophone", 
+    "name": "Saxophone"
+  }
+},
+{
+  "pk": 14, 
+  "model": "rasikapriya.instrument", 
+  "fields": {
+    "slug": "nadaswaram", 
+    "name": "Nadaswaram"
+  }
+},
+{
+  "pk": 15, 
+  "model": "rasikapriya.instrument", 
+  "fields": {
+    "slug": "thavil", 
+    "name": "Thavil"
+  }
+},
+{
+  "pk": 16, 
+  "model": "rasikapriya.instrument", 
+  "fields": {
+    "slug": "konnakkol", 
+    "name": "Konnakkol"
+  }
+},
+{
+  "pk": 17, 
+  "model": "rasikapriya.instrument", 
+  "fields": {
+    "slug": "tabla", 
+    "name": "Tabla"
+  }
+}
+]

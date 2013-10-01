@@ -141,6 +141,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
     'south',
+    'rasikapriya',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -184,3 +185,5 @@ LOGGING = {
         },
     }
 }
+
+SM_API_KEY = private_settings.SM_API_KEY
