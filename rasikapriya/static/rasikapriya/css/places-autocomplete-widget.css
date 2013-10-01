@@ -1,0 +1,30 @@
+.places-autocomplete-map-canvas {
+    width: 500px;
+    height: 280px;
+}
+
+.places-autocomplete-container {
+    overflow: hidden;
+    position: relative;
+}
+
+.places-autocomplete-input {
+    width: 490px;
+}
+
+input.places-autocomplete-notfound {
+    border: 2px solid  rgba(255, 0, 0, 0.4);
+}
+
+/*
+#panel {
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  margin-left: -180px;
+  z-index: 5;
+  background-color: #fff;
+  padding: 5px;
+  border: 1px solid #999;
+}
+*/

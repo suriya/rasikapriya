@@ -1,6 +1,7 @@
 from django.db import models
 from autoslug import AutoSlugField
 import string
+from .widgets import PlacesAutocompleteWidget
 
 class Instrument(models.Model):
     slug = AutoSlugField(unique=True, populate_from='name')
@@ -35,3 +36,17 @@ class Artist(models.Model):
 
     def __unicode__(self):
         return self.full_name
+
+class Venue(models.Model):
+    slug = AutoSlugField(unique=True, populate_from='full_address')
+    name = models.CharField(max_length=255, blank=True)
+    address = models.TextField()
+
+    @property
+    def full_address(self):
+        return '%s %s' % (self.name, self.address)
+
+    def __unicode__(self):
+        if self.name:
+            return self.name
+        return self.address
