@@ -41,6 +41,7 @@ class Venue(models.Model):
     slug = AutoSlugField(unique=True, populate_from='full_address')
     name = models.CharField(max_length=255, blank=True)
     address = models.TextField()
+    home_page = models.URLField(blank=True)
 
     @property
     def full_address(self):
@@ -50,3 +51,31 @@ class Venue(models.Model):
         if self.name:
             return self.name
         return self.address
+
+class Organization(models.Model):
+    slug = AutoSlugField(unique=True, populate_from='name')
+    name = models.CharField(max_length=255)
+    venue = models.ForeignKey(Venue, blank=True, null=True,
+            help_text=u'Only if the organization has a physical address')
+    home_page = models.URLField(blank=True)
+    description = models.TextField(blank=True)
+
+    def __unicode__(self):
+        return self.name
+
+class Festival(models.Model):
+    slug = AutoSlugField(unique=True, populate_from='full_name')
+    name = models.CharField(max_length=255)
+    start_date = models.DateField()
+    end_date = models.DateField(null=True, blank=True)
+    home_page = models.URLField(blank=True)
+    description = models.TextField(blank=True)
+    venue = models.ForeignKey(Venue, blank=True, null=True,
+            help_text=u'If the festival is in a single location')
+
+    @property
+    def full_name(self):
+        return u'%s (%d)' % (self.name, self.start_date.year)
+
+    def __unicode__(self):
+        return self.full_name
