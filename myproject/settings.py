@@ -137,12 +137,12 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rasikapriya',
     'django.contrib.admin',
     'django.contrib.admindocs',
     'south',
     'autocomplete_light',
     'debug_toolbar',
-    'rasikapriya',
 )
 
 INTERNAL_IPS = (
