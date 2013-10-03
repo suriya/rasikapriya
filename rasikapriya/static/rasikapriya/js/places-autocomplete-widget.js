@@ -90,4 +90,12 @@
     });
   }
   $(document).ready(initialize);
-})(django.jQuery);
+})(
+  ((typeof django !== "undefined" && django !== null) && (django.jQuery != null)) ?
+    django.jQuery :
+    (typeof jQuery !== "undefined" && jQuery !== null) ?
+      jQuery :
+      ($ != null) ?
+        $ :
+        void 0
+);
