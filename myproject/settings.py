@@ -138,11 +138,13 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rasikapriya',
+    'django.contrib.humanize',
     'django.contrib.admin',
     'django.contrib.admindocs',
     'south',
     'autocomplete_light',
     'debug_toolbar',
+    'bsct',
 )
 
 INTERNAL_IPS = (

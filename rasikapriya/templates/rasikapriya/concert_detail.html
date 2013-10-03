@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+ 
+{% load humanize %}
+
+{% block title %}
+Classical music concert : {{ concert }}
+{% endblock %}
+
+{% block content %}
+<h2 class="concert-title">
+    {% with main_performer=concert.main_performer %}
+        {{ main_performer.instrument }} concert by {{ main_performer.artist }}
+    {% endwith %}
+</h2>
+<div class="container"><div class="row">
+    <div class="span8">
+        <table class = "table table-condensed" >
+        {% for performer in concert.performance_set.all %}
+        <tr>
+            <td>
+                {{ performer.artist }} ({{ performer.instrument }})
+            </td>
+        </tr>
+        {% endfor %}
+        </table>
+    </div>
+    <div class="span4">
+        <table class = "table table-condensed" >
+        <tr>
+            <td>
+                Sharing buttons
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Concert rating
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a target="_blank" href="{{ concert.concert_venue.maps_url }}">
+                <img width="" height=""
+                    src="{{ concert.concert_venue.static_map_url }}">
+                </a>
+            </td>
+        </tr>
+        {% if concert.festival %}
+        <tr>
+            <td>
+                Other concerts in this festival.
+            </td>
+        </tr>
+        {% endif %}
+        </table>
+    </div>
+</div></div>
+{% endblock %}

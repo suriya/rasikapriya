@@ -1,9 +1,11 @@
 
+from django.core.urlresolvers import reverse
 from django.db import models
 from autoslug import AutoSlugField
 import string
 from .widgets import PlacesAutocompleteWidget
 from django.core.exceptions import ValidationError
+import urllib
 
 class Instrument(models.Model):
     slug = AutoSlugField(unique=True, populate_from='name')
@@ -52,6 +54,21 @@ class Venue(models.Model):
         if self.name:
             return self.name
         return self.address
+
+    def static_map_url(self):
+        params = (
+            ('sensor',  'false'),
+            ('size',    '400x280'),
+            ('center',  self.address),
+            ('markers', self.address),
+        )
+        return 'http://maps.googleapis.com/maps/api/staticmap?%s' % urllib.urlencode(params)
+
+    def maps_url(self):
+        params = (
+            ('q', self.address),
+        )
+        return 'http://maps.google.com/?%s' % urllib.urlencode(params)
 
 class Organization(models.Model):
     slug = AutoSlugField(unique=True, populate_from='name')
@@ -118,6 +135,13 @@ class Concert(models.Model):
     def __unicode__(self):
         artists = ', '.join(unicode(a) for a in self.artists.all())
         return u'%s; %s; %s' % (artists, self.venue, self.date)
+
+    def get_absolute_url(self):
+        return reverse('concert_detail', kwargs={ 'pk': self.pk })
+
+    @property
+    def main_performer(self):
+        return self.performance_set.all()[0]
 
 class Performance(models.Model):
     artist = models.ForeignKey(Artist)

@@ -3,13 +3,44 @@ import sys
 import requests
 import argparse
 from django.conf import settings
-from rasikapriya.models import Artist, Instrument
+from rasikapriya.models import Artist, Instrument, Venue
 
-# def parse_args():
-#     parser = argparse.ArgumentParser(description='Add a new artist')
-#     parser.add_argument('--artist', '-a', required=True, help='name of the artist')
-#     parser.add_argument('--instruments', '-i', required=True, nargs='+', help='instruments played')
-#     return parser.parse_args()
+def geocode(address):
+    params = {
+        'address': address,
+        'sensor': 'false',
+    }
+    request = requests.get('https://maps.googleapis.com/maps/api/geocode/json', params=params)
+    print request.url
+    response = request.json()
+    status = response['status']
+    if status != 'OK':
+        print 'Geocode was not successful for the following reason: ', status
+        return
+    location = response['results'][0]['geometry']['location']
+    print response
+    print location
+    print response['results'][0]['formatted_address']
+    print response['results'][0]['address_components']
+
+def reverse_geocode(location):
+    latlng = '%f,%f' % (location['lat'], location['lng'])
+    params = {
+        'latlng': latlng,
+        'sensor': 'false',
+    }
+    request = requests.get('https://maps.googleapis.com/maps/api/geocode/json', params=params)
+    print request.url
+    response = request.json()
+    status = response['status']
+    if status != 'OK':
+        print 'Geocode was not successful for the following reason: ', status
+        return
+    location = response['results'][0]['geometry']['location']
+    print response
+    print location
+    print response['results'][0]['formatted_address']
+    print response['results'][0]['address_components']
 
 def get_home_page(artist):
     search_string = '%s %s' % (artist.full_name, ' '.join(unicode(i) for i in artist.instruments.all()))
@@ -46,5 +77,10 @@ def update_artist_details(artist):
         print 'Saved artist details', artist
         break
 
-# if __name__ == '__main__':
-#     do_all()
+def do_all():
+    for v in Venue.objects.all():
+        print v
+        geocode(unicode(v))
+
+if __name__ == '__main__':
+    do_all()

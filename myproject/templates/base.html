@@ -1,10 +1,24 @@
-<html>
+<!DOCTYPE html>
+<html {% block extraHtmlTags %}{% endblock %} lang="en">
     <head>
         <title>{% block title %}Page's title{% endblock %}</title>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style type="text/css">{% include 'style.css' %}</style>
+        <style type="text/css">{% block customcss %}{% endblock %}</style>
+        {% block customjs %}{% endblock %}
+
+        {% include 'google-analytics.html' %}
+        {% if form.media %}
+            {{ form.media }}
+        {% endif %}
     </head>
     <body>
-        {% block content %}
-        Hello World
-        {% endblock %}
+<div class="container"><div class="row"><div class="span12"><div class="content">
+    {% block BSCT_MAIN %}{% endblock %}
+    {% block content %}{% endblock %}
+</div></div></div></div>
     </body>
 </html>
