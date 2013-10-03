@@ -123,3 +123,6 @@ class Performance(models.Model):
     artist = models.ForeignKey(Artist)
     concert = models.ForeignKey(Concert)
     instrument = models.ForeignKey(Instrument)
+
+    def __unicode__(self):
+        return u'%s %s' % (self.artist, self.instrument)
