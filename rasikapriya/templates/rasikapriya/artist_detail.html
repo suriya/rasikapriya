@@ -14,19 +14,45 @@
         {{ artist }}
     {% endif %}
 </h2>
-        {% for instrument in artist.instruments %}
-            {% if forloop.first %}
-                <h3>
-            {% elif forloop.last %}
-                , and
-            {% else %}
-                ,
-            {% endif %}
-            <a href="{{ instrument.get_absolute_url }}">{{ instrument }}</a>
-            {% if forloop.last %}
-                artist </h3>
-            {% endif %}
-        {% endfor %}
+{% for band_member in artist.band_members.all %}
+    {% if forloop.first %}
+        <h3>
+    {% elif forloop.last %}
+        and
+    {% else %}
+        ,
+    {% endif %}
+    <a href="{{ band_member.get_absolute_url }}">{{ band_member }}</a>
+    {% if forloop.last %}
+        </h3>
+    {% endif %}
+{% endfor %}
+{% for band in artist.artist_set.all %}
+    {% if forloop.first %}
+        <h3> Member of
+    {% elif forloop.last %}
+        and
+    {% else %}
+        ,
+    {% endif %}
+    <a href="{{ band.get_absolute_url }}">{{ band }}</a>
+    {% if forloop.last %}
+        </h3>
+    {% endif %}
+{% endfor %}
+{% for instrument in artist.instruments %}
+    {% if forloop.first %}
+        <h3>
+    {% elif forloop.last %}
+        and
+    {% else %}
+        ,
+    {% endif %}
+    <a href="{{ instrument.get_absolute_url }}">{{ instrument }}</a>
+    {% if forloop.last %}
+        artist </h3>
+    {% endif %}
+{% endfor %}
 <div class="container"><div class="row">
     <div class="span8">
         <div class="artist-description well">

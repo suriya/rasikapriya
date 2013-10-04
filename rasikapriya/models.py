@@ -26,9 +26,9 @@ class Artist(models.Model):
     first_name = models.CharField(max_length=255, blank=True)
     middle_name = models.CharField(max_length=255, blank=True)
     last_name = models.CharField(max_length=255, blank=True)
-#     instruments = models.ManyToManyField(Instrument)
     home_page = models.URLField(blank=True)
     description = models.TextField(blank=True)
+    band_members = models.ManyToManyField('self', symmetrical=False, blank=True)
 
     @property
     def instruments(self):
