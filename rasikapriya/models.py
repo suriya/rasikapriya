@@ -149,7 +149,13 @@ class Concert(models.Model):
         return u'%s; %s; %s' % (artists, self.venue, self.date)
 
     def get_absolute_url(self):
-        return reverse('concert_detail', kwargs={ 'pk': self.pk })
+        kwargs = {
+            'pk'    : self.pk,
+            'year'  : self.date.year,
+            'month' : '%02d' % self.date.month,
+            'day'   : '%02d' % self.date.day,
+        }
+        return reverse('concert_date_detail', kwargs=kwargs)
 
     @property
     def main_performer(self):

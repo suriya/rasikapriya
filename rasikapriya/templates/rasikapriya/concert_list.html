@@ -8,6 +8,9 @@
 {% block content %}
 <h2 class="list-title">
     Concerts
+    {% if day %}
+        on {{ day }}
+    {% endif %}
 </h2>
 
 <div class="container"><div class="row">
@@ -15,7 +18,7 @@
 <div class="span8">
     <table class="table table-striped">
         {% for concert in concert_list %}
-        <tr>
+        <tr class="{% cycle 'row0' 'row1' %}">
             <td>
                 {% include 'rasikapriya/concert_list_snippet.html' %}
             </td>
@@ -30,6 +33,23 @@
         {% endif %}
         {% if page_obj.has_next %}
             <a class = "btn btn-info" href="?page={{ page_obj.next_page_number }}"> Next</a>
+        {% endif %}
+        </div>
+    </div>
+    <div class = "row">
+        <div class = "span4">
+        {% if previous_day %}
+            <a class = "btn btn-info"
+                href="{% url 'concert_day_archive' year=previous_day|date:"Y" month=previous_day|date:"m" day=previous_day|date:"d" %}">
+                    {{ previous_day }}</a>
+        {% endif %}
+        {% if previous_day and next_day %}
+            --
+        {% endif %}
+        {% if next_day %}
+            <a class = "btn btn-info"
+                href="{% url 'concert_day_archive' next_day|date:"Y" next_day|date:"m" next_day|date:"d" %}">
+                    {{ next_day }}</a>
         {% endif %}
         </div>
     </div>
