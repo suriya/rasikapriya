@@ -137,15 +137,16 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rasikapriya',
     'django.contrib.humanize',
     'django.contrib.admin',
     'django.contrib.admindocs',
+    'django.contrib.sitemaps',
     'south',
     'autocomplete_light',
     'debug_toolbar',
     'bsct',
     'django_pdb',
+    'rasikapriya',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
