@@ -6,15 +6,6 @@
 {{ artist }}
 {% endblock %}
 
-{% block customcss %}
-    .row0 td {
-        background-color: #E5ECFF;
-    }
-    .row1 td {
-        background-color: #CCDAFF;
-    }
-{% endblock %}
-
 {% block content %}
 <h2 class="artist-title">
     {% if artist.home_page %}
@@ -23,10 +14,6 @@
         {{ artist }}
     {% endif %}
 </h2>
-{% if artist.instruments %}
-<h3>
-</h3>
-{% endif %}
         {% for instrument in artist.instruments %}
             {% if forloop.first %}
                 <h3>
@@ -50,7 +37,7 @@
             {% endif %}
         </div>
         <h3>Concerts</h3>
-        <table class="table">
+        <table class="table table-striped">
         {% for concert in artist.concert_set.all %}
             <tr class="{% cycle 'row0' 'row1' %}"> <td>
                 {% include 'rasikapriya/concert_list_snippet.html' %}

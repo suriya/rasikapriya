@@ -1,7 +1,7 @@
 
 from django.views.generic import (DateDetailView, DetailView, ListView,
         DayArchiveView, TodayArchiveView)
-from .models import Concert, Artist, Instrument
+from .models import Concert, Artist, Instrument, Venue
 from django.shortcuts import get_object_or_404
 
 class DateFormat:
@@ -41,7 +41,7 @@ class InstrumentDetail(ListView):
     context_object_name = 'artist_list'
 
     def __init__(self, **kwargs):
-        super(InstrumentDetailView, self).__init__(**kwargs)
+        super(InstrumentDetail, self).__init__(**kwargs)
         self.instrument_from_url = None
 
     def get_instrument_from_url(self):
@@ -56,7 +56,7 @@ class InstrumentDetail(ListView):
 
     def get_context_data(self, **kwargs):
         instrument = self.get_instrument_from_url()
-        context_data = super(InstrumentDetailView, self).get_context_data(**kwargs)
+        context_data = super(InstrumentDetail, self).get_context_data(**kwargs)
         context_data.update({
             'instrument': instrument,
         })
@@ -64,3 +64,35 @@ class InstrumentDetail(ListView):
 
 class ArtistDetail(DetailView):
     model = Artist
+
+class ArtistList(ListView):
+    model = Artist
+    paginate_by = 10
+
+class VenueDetail(ListView):
+    # Making this a ListView so that we get pagination for free.
+    paginate_by = 10
+    context_object_name = 'concert_list'
+    template_name = 'rasikapriya/venue_detail.html'
+
+    def __init__(self, **kwargs):
+        super(VenueDetail, self).__init__(**kwargs)
+        self.venue_from_url = None
+
+    def get_venue_from_url(self):
+        if not self.venue_from_url:
+            slug = self.kwargs['slug']
+            self.venue_from_url = get_object_or_404(Venue, slug=slug)
+        return self.venue_from_url
+
+    def get_queryset(self):
+        venue = self.get_venue_from_url()
+        return venue.concert_set.all()
+
+    def get_context_data(self, **kwargs):
+        venue = self.get_venue_from_url()
+        context_data = super(VenueDetail, self).get_context_data(**kwargs)
+        context_data.update({
+            'venue': venue,
+        })
+        return context_data

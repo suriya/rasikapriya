@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+ 
+{% load humanize %}
+
+{% block title %}
+{{ venue }}
+{% endblock %}
+
+{% block content %}
+<h2 class="venue-title">
+    {% if venue.home_page %}
+        <a href="{{ venue.home_page }}">{{ venue }}</a>
+    {% else %}
+        {{ venue }}
+    {% endif %}
+</h2>
+<div class="container"><div class="row">
+    <div class="span8">
+        <div class="venue-description well">
+            {% if venue.description %}
+                {{ venue.description|safe }}
+            {% else %}
+                No description found :(
+            {% endif %}
+        </div>
+        <h3>Concerts at this venue</h3>
+        <table class="table table-striped">
+        {% for concert in venue.concert_set.all %}
+            <tr> <td>
+                {% include 'rasikapriya/concert_list_snippet.html' %}
+            </td> </tr>
+        {% endfor %}
+        </table>
+    </div>
+    <div class="span4">
+        {% include 'rasikapriya/venue_map.html' with venue=venue %}
+    </div>
+</div></div>
+{% endblock %}

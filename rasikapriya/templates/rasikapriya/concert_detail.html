@@ -42,10 +42,7 @@ Classical music concert : {{ concert }}
         </tr>
         <tr>
             <td>
-                <a target="_blank" href="{{ concert.concert_venue.maps_url }}">
-                <img width="" height=""
-                    src="{{ concert.concert_venue.static_map_url }}">
-                </a>
+                {% include 'rasikapriya/venue_map.html' with venue=concert.concert_venue %}
             </td>
         </tr>
         {% if concert.festival %}

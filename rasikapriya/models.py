@@ -80,6 +80,9 @@ class Venue(models.Model):
         )
         return 'http://maps.google.com/?%s' % urllib.urlencode(params)
 
+    def get_absolute_url(self):
+        return reverse('venue_detail', kwargs={ 'slug': self.slug })
+
 class Organization(models.Model):
     slug = AutoSlugField(unique=True, populate_from='name')
     name = models.CharField(max_length=255)

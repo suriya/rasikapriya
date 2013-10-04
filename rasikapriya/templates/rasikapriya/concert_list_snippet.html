@@ -3,9 +3,7 @@
 </div>
 <div class="concert-artists">
     {% for performance in concert.performance_set.select_related.all %}
-        {% if not forloop.first %}, {% endif %}
-        <a href="{{ performance.artist.get_absolute_url }}">{{ performance.artist }}</a>
-        ({{ performance.instrument }})
+        <a href="{{ performance.artist.get_absolute_url }}">{{ performance.artist }}</a>{% if not forloop.last %}, {% endif %}
     {% endfor %}
 </div>
 <div class="concert-time">
@@ -15,5 +13,5 @@
     {% endif %}
 </div>
 <div class="concert-venue">
-    {{ concert.concert_venue }}
+    <a href="{{ concert.concert_venue.get_absolute_url }}">{{ concert.concert_venue }}</a>
 </div>
