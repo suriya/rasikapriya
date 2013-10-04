@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+ 
+{% load humanize %}
+
+{% block title %}
+{{ artist }}
+{% endblock %}
+
+{% block customcss %}
+    .row0 td {
+        background-color: #E5ECFF;
+    }
+    .row1 td {
+        background-color: #CCDAFF;
+    }
+{% endblock %}
+
+{% block content %}
+<h2 class="artist-title">
+    {{ artist }}
+</h2>
+<div class="container"><div class="row">
+    <div class="span8">
+        <div class="artist-description well">
+            {% if artist.description %}
+                {{ artist.description|safe }}
+            {% else %}
+                No description found :(
+            {% endif %}
+        </div>
+        <h3>Concerts</h3>
+        <table class="table">
+        {% for performance in artist.performance_set.all %}
+            <tr class="{% cycle 'row0' 'row1' %}"> <td>
+                {% with concert=performance.concert %}
+                    <a href="{{ concert.get_absolute_url }}">
+                    {{ performance.instrument }} with 
+                    {{ concert.main_performer.artist }} at {{ concert.venue }} on {{ concert.date }}
+                    </a>
+                {% endwith %}
+                <!-- {{ performance.concert }} -->
+            </td> </tr>
+        {% endfor %}
+        </table>
+    </div>
+    <div class="span4">
+    </div>
+</div></div>
+{% endblock %}

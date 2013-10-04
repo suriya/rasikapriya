@@ -43,7 +43,7 @@ def reverse_geocode(location):
     print response['results'][0]['address_components']
 
 def get_home_page(artist):
-    search_string = '%s %s' % (artist.full_name, ' '.join(unicode(i) for i in artist.instruments.all()))
+    search_string = '%s carnatic music' % artist
     params = {
         'v': '1.0',
         'q': search_string,
@@ -78,9 +78,8 @@ def update_artist_details(artist):
         break
 
 def do_all():
-    for v in Venue.objects.all():
-        print v
-        geocode(unicode(v))
+    for artist in Artist.objects.filter(home_page__exact='').filter(description__exact=''):
+        update_artist_details(artist)
 
 if __name__ == '__main__':
     do_all()

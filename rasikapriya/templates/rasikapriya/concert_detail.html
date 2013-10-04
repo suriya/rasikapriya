@@ -12,13 +12,17 @@ Classical music concert : {{ concert }}
         {{ main_performer.instrument }} concert by {{ main_performer.artist }}
     {% endwith %}
 </h2>
+<h3 class="concert-date">
+    {{ concert.date }} at {{ concert.venue }}
+</h3>
 <div class="container"><div class="row">
     <div class="span8">
         <table class = "table table-condensed" >
         {% for performer in concert.performance_set.all %}
         <tr>
             <td>
-                {{ performer.artist }} ({{ performer.instrument }})
+                <a href="{{ performer.artist.get_absolute_url }}">{{ performer.artist }}</a>
+                    (<a href="{{ performer.instrument.get_absolute_url }}">{{ performer.instrument }}</a>)
             </td>
         </tr>
         {% endfor %}
@@ -27,10 +31,10 @@ Classical music concert : {{ concert }}
     <div class="span4">
         <table class = "table table-condensed" >
         <tr>
-            <td>
-                Sharing buttons
-            </td>
-        </tr>
+             <td colspan="2" style="text-align: center;">
+                 {% include 'sharing-buttons.html' with url=request.build_absolute_uri title=concert.title %}
+             </td>
+         </tr>
         <tr>
             <td>
                 Concert rating

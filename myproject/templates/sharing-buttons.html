@@ -1,0 +1,33 @@
+<!-- I got these buttons from simplesharebuttons.com -->
+<div id="share-buttons">
+ 
+<!-- Facebook -->
+<a title="Share on Facebook"
+    href="http://www.facebook.com/sharer.php?u={{ url|urlencode }}" target="_blank"><img
+        src="http://www.simplesharebuttons.com/images/somacro/facebook.png"
+        alt="Facebook" /></a>
+ 
+<!-- Twitter -->
+<a title="Share on Twitter"
+    href="http://twitter.com/share?url={{ url|urlencode }}&text={{ title|urlencode }}"
+    target="_blank"><img
+        src="http://www.simplesharebuttons.com/images/somacro/twitter.png" alt="Twitter" /></a>
+ 
+<!-- Google+ -->
+<a title="Share on Google+"
+    href="https://plus.google.com/share?url={{ url|urlencode }}"
+    target="_blank"><img
+        src="http://www.simplesharebuttons.com/images/somacro/google.png" alt="Google" /></a>
+ 
+<!-- Reddit -->
+<a title="Share on Reddit"
+    href="http://reddit.com/submit?url={{ url|urlencode }}&title={{ title|urlencode }}"
+    target="_blank"><img
+        src="http://www.simplesharebuttons.com/images/somacro/reddit.png" alt="Reddit" /></a>
+ 
+<!-- Email -->
+<a title="Email a friend"
+    href="mailto:?Subject={{ title }}&Body={{ "I saw this and thought of you! "|urlencode }}{{ url|urlencode }}"><img
+        src="http://www.simplesharebuttons.com/images/somacro/email.png" alt="Email" /></a>
+ 
+</div>

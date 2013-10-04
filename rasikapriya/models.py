@@ -14,6 +14,9 @@ class Instrument(models.Model):
     def __unicode__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('instrument_detail', kwargs={ 'slug': self.slug })
+
 class Artist(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
     modify_date = models.DateTimeField(auto_now=True)
@@ -39,6 +42,9 @@ class Artist(models.Model):
 
     def __unicode__(self):
         return self.full_name
+
+    def get_absolute_url(self):
+        return reverse('artist_detail', kwargs={ 'slug': self.slug })
 
 class Venue(models.Model):
     slug = AutoSlugField(unique=True, populate_from='full_address')
@@ -142,6 +148,10 @@ class Concert(models.Model):
     @property
     def main_performer(self):
         return self.performance_set.all()[0]
+
+    @property
+    def title(self):
+        return unicode(self)
 
 class Performance(models.Model):
     artist = models.ForeignKey(Artist)
