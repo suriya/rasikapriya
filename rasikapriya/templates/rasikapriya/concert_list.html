@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% load humanize %}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+<h2 class="list-title">
+    Concerts
+</h2>
+
+<div class="container"><div class="row">
+
+<div class="span8">
+    <table class="table table-striped">
+        {% for concert in concert_list %}
+        <tr>
+            <td>
+                {% include 'rasikapriya/concert_list_snippet.html' %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div class = "row">
+        <div class = "span4">
+        {% if page_obj.has_previous %}
+            <a class = "btn btn-info" href="?page={{ page_obj.previous_page_number }}"> Previous</a>
+        {% endif %}
+        {% if page_obj.has_next %}
+            <a class = "btn btn-info" href="?page={{ page_obj.next_page_number }}"> Next</a>
+        {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="span4">
+</div>
+
+</div></div>
+
+{% endblock %}

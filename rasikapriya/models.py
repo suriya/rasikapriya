@@ -31,6 +31,10 @@ class Artist(models.Model):
     description = models.TextField(blank=True)
 
     @property
+    def instruments(self):
+        return Instrument.objects.filter(performance__artist=self).distinct()
+
+    @property
     def full_name(self):
         return string.capwords('%s %s %s %s %s' % (self.native_place,
             self.initials, self.first_name, self.middle_name,
@@ -129,6 +133,8 @@ class Concert(models.Model):
     def concert_venue(self):
         if self.festival and self.festival.venue:
             return self.festival.venue
+        elif self.venue:
+            return self.venue
         elif self.organization and self.organization.venue:
             return self.organization.venue
         else:

@@ -1,0 +1,19 @@
+<div class="concert-details-link">
+    <a href="{{ concert.get_absolute_url }}">Concert details</a>
+</div>
+<div class="concert-artists">
+    {% for performance in concert.performance_set.select_related.all %}
+        {% if not forloop.first %}, {% endif %}
+        <a href="{{ performance.artist.get_absolute_url }}">{{ performance.artist }}</a>
+        ({{ performance.instrument }})
+    {% endfor %}
+</div>
+<div class="concert-time">
+    {{ concert.date }} {{ concert.start_time }}
+    {% if concert.end_time %}
+        - {{ concert.end_time }}
+    {% endif %}
+</div>
+<div class="concert-venue">
+    {{ concert.concert_venue }}
+</div>

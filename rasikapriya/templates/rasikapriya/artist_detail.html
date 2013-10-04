@@ -17,8 +17,29 @@
 
 {% block content %}
 <h2 class="artist-title">
-    {{ artist }}
+    {% if artist.home_page %}
+        <a href="{{ artist.home_page }}">{{ artist }}</a>
+    {% else %}
+        {{ artist }}
+    {% endif %}
 </h2>
+{% if artist.instruments %}
+<h3>
+</h3>
+{% endif %}
+        {% for instrument in artist.instruments %}
+            {% if forloop.first %}
+                <h3>
+            {% elif forloop.last %}
+                , and
+            {% else %}
+                ,
+            {% endif %}
+            <a href="{{ instrument.get_absolute_url }}">{{ instrument }}</a>
+            {% if forloop.last %}
+                artist </h3>
+            {% endif %}
+        {% endfor %}
 <div class="container"><div class="row">
     <div class="span8">
         <div class="artist-description well">
@@ -30,15 +51,9 @@
         </div>
         <h3>Concerts</h3>
         <table class="table">
-        {% for performance in artist.performance_set.all %}
+        {% for concert in artist.concert_set.all %}
             <tr class="{% cycle 'row0' 'row1' %}"> <td>
-                {% with concert=performance.concert %}
-                    <a href="{{ concert.get_absolute_url }}">
-                    {{ performance.instrument }} with 
-                    {{ concert.main_performer.artist }} at {{ concert.venue }} on {{ concert.date }}
-                    </a>
-                {% endwith %}
-                <!-- {{ performance.concert }} -->
+                {% include 'rasikapriya/concert_list_snippet.html' %}
             </td> </tr>
         {% endfor %}
         </table>
