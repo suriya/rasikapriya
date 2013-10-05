@@ -13,7 +13,8 @@ Classical music concert : {{ concert }}
     {% endwith %}
 </h2>
 <h3 class="concert-date">
-    {{ concert.date }} at {{ concert.venue }}
+    {{ concert.date }} at
+        <a href="{{ concert.cached_venue.get_absolute_url }}">{{ concert.cached_venue }}</a>
 </h3>
 <div class="container"><div class="row">
     <div class="span8">

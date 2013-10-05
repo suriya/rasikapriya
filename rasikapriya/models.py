@@ -51,6 +51,8 @@ class Artist(models.Model):
         return reverse('artist_detail', kwargs={ 'slug': self.slug })
 
 class Venue(models.Model):
+    create_date = models.DateTimeField(auto_now_add=True)
+    modify_date = models.DateTimeField(auto_now=True)
     slug = AutoSlugField(unique=True, populate_from='full_address')
     name = models.CharField(max_length=255, blank=True)
     address = models.TextField()
@@ -84,6 +86,8 @@ class Venue(models.Model):
         return reverse('venue_detail', kwargs={ 'slug': self.slug })
 
 class Organization(models.Model):
+    create_date = models.DateTimeField(auto_now_add=True)
+    modify_date = models.DateTimeField(auto_now=True)
     slug = AutoSlugField(unique=True, populate_from='name')
     name = models.CharField(max_length=255)
     venue = models.ForeignKey(Venue, blank=True, null=True,
@@ -95,6 +99,8 @@ class Organization(models.Model):
         return self.name
 
 class Festival(models.Model):
+    create_date = models.DateTimeField(auto_now_add=True)
+    modify_date = models.DateTimeField(auto_now=True)
     slug = AutoSlugField(unique=True, populate_from='full_name')
     name = models.CharField(max_length=255)
     start_date = models.DateField()
@@ -177,6 +183,8 @@ class Concert(models.Model):
         return unicode(self)
 
 class Performance(models.Model):
+    create_date = models.DateTimeField(auto_now_add=True)
+    modify_date = models.DateTimeField(auto_now=True)
     artist = models.ForeignKey(Artist)
     concert = models.ForeignKey(Concert)
     instrument = models.ForeignKey(Instrument)
