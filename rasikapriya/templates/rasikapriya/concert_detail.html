@@ -42,7 +42,7 @@ Classical music concert : {{ concert }}
         </tr>
         <tr>
             <td>
-                {% include 'rasikapriya/venue_map.html' with venue=concert.concert_venue %}
+                {% include 'rasikapriya/venue_map.html' with venue=concert.cached_venue %}
             </td>
         </tr>
         {% if concert.festival %}

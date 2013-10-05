@@ -13,5 +13,5 @@
     {% endif %}
 </div>
 <div class="concert-venue">
-    <a href="{{ concert.concert_venue.get_absolute_url }}">{{ concert.concert_venue }}</a>
+    <a href="{{ concert.cached_venue.get_absolute_url }}">{{ concert.cached_venue }}</a>
 </div>

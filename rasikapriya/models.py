@@ -122,6 +122,7 @@ class Concert(models.Model):
             help_text=u"""If the concert is not a part of a festival, the
             details of the organizer""")
     venue = models.ForeignKey(Venue, blank=True, null=True,
+            related_name='+',
             help_text=u"""For a concert's venue, we try the following
             options. 1. the venue of the festival, if the concert is part
             of a festival with a single venue; 2. the venue of the
@@ -131,21 +132,28 @@ class Concert(models.Model):
     start_time = models.TimeField()
     end_time = models.TimeField(blank=True, null=True)
     artists = models.ManyToManyField(Artist, through='Performance')
+    cached_venue = models.ForeignKey(Venue, editable=False,
+            help_text=u"""The venue could come from either self.venue,
+            or from self.festival.venue, or self.organization.venue. We
+            cache the result here so that Venue.concert_set.all() works.
+            """)
 
-    @property
-    def concert_venue(self):
-        if self.festival and self.festival.venue:
-            return self.festival.venue
-        elif self.venue:
+    def _lookup_venue(self):
+        if self.venue:
             return self.venue
+        elif self.festival and self.festival.venue:
+            return self.festival.venue
         elif self.organization and self.organization.venue:
             return self.organization.venue
         else:
-            return self.venue
+            return None
 
     def clean(self):
-        if not self.concert_venue:
-            raise ValidationError('Concert needs to have a venue.')
+        self.cached_venue = self._lookup_venue()
+        if not self.cached_venue:
+            raise ValidationError(u"""Concert needs to have a venue; either
+                    by itself, or from the concert's festival, or from the
+                    concert's organizer.""")
 
     def __unicode__(self):
         artists = ', '.join(unicode(a) for a in self.artists.all())
