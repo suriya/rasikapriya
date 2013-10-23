@@ -25,7 +25,7 @@ execfile(activate_this, dict(__file__=activate_this))
 # if running multiple sites in the same mod_wsgi process. To fix this, use
 # mod_wsgi daemon mode with each site in its own daemon process, or use
 projectname = os.path.basename(projectdir)
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "%s.settings" % projectdir)
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "%s.settings" % projectname)
 
 # Calculate the path based on the location of the WSGI script
 sys.path.append(os.path.realpath(os.path.join(projectdir, '..')))
