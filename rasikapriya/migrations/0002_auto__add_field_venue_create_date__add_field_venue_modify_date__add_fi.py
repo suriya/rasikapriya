@@ -3,49 +3,49 @@ import datetime
 from south.db import db
 from south.v2 import SchemaMigration
 from django.db import models
-
+from django.utils import timezone
 
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
         # Adding field 'Venue.create_date'
         db.add_column(u'rasikapriya_venue', 'create_date',
-                      self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, default=datetime.datetime(2013, 10, 5, 0, 0), blank=True),
+                      self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, default=timezone.now(), blank=True),
                       keep_default=False)
 
         # Adding field 'Venue.modify_date'
         db.add_column(u'rasikapriya_venue', 'modify_date',
-                      self.gf('django.db.models.fields.DateTimeField')(auto_now=True, default=datetime.datetime(2013, 10, 5, 0, 0), blank=True),
+                      self.gf('django.db.models.fields.DateTimeField')(auto_now=True, default=timezone.now(), blank=True),
                       keep_default=False)
 
         # Adding field 'Organization.create_date'
         db.add_column(u'rasikapriya_organization', 'create_date',
-                      self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, default=datetime.datetime(2013, 10, 5, 0, 0), blank=True),
+                      self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, default=timezone.now(), blank=True),
                       keep_default=False)
 
         # Adding field 'Organization.modify_date'
         db.add_column(u'rasikapriya_organization', 'modify_date',
-                      self.gf('django.db.models.fields.DateTimeField')(auto_now=True, default=datetime.datetime(2013, 10, 5, 0, 0), blank=True),
+                      self.gf('django.db.models.fields.DateTimeField')(auto_now=True, default=timezone.now(), blank=True),
                       keep_default=False)
 
         # Adding field 'Performance.create_date'
         db.add_column(u'rasikapriya_performance', 'create_date',
-                      self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, default=datetime.datetime(2013, 10, 5, 0, 0), blank=True),
+                      self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, default=timezone.now(), blank=True),
                       keep_default=False)
 
         # Adding field 'Performance.modify_date'
         db.add_column(u'rasikapriya_performance', 'modify_date',
-                      self.gf('django.db.models.fields.DateTimeField')(auto_now=True, default=datetime.datetime(2013, 10, 5, 0, 0), blank=True),
+                      self.gf('django.db.models.fields.DateTimeField')(auto_now=True, default=timezone.now(), blank=True),
                       keep_default=False)
 
         # Adding field 'Festival.create_date'
         db.add_column(u'rasikapriya_festival', 'create_date',
-                      self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, default=datetime.datetime(2013, 10, 5, 0, 0), blank=True),
+                      self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, default=timezone.now(), blank=True),
                       keep_default=False)
 
         # Adding field 'Festival.modify_date'
         db.add_column(u'rasikapriya_festival', 'modify_date',
-                      self.gf('django.db.models.fields.DateTimeField')(auto_now=True, default=datetime.datetime(2013, 10, 5, 0, 0), blank=True),
+                      self.gf('django.db.models.fields.DateTimeField')(auto_now=True, default=timezone.now(), blank=True),
                       keep_default=False)
 
 
