@@ -163,7 +163,7 @@ class Concert(models.Model):
 
     def __unicode__(self):
         artists = ', '.join(unicode(a) for a in self.artists.all())
-        return u'%s; %s; %s' % (artists, self.venue, self.date)
+        return u'%s; %s; %s' % (artists, self.cached_venue, self.date)
 
     def get_absolute_url(self):
         kwargs = {
