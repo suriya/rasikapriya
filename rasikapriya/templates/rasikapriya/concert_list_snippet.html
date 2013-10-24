@@ -7,9 +7,9 @@
     {% endfor %}
 </div>
 <div class="concert-time">
-    {{ concert.date }} {{ concert.start_time }}
-    {% if concert.end_time %}
-        - {{ concert.end_time }}
+    {{ concert.aware_start_time }}
+    {% if concert.aware_end_time %}
+        - {{ concert.aware_end_time }}
     {% endif %}
 </div>
 {% if concert.festival %}

@@ -134,6 +134,8 @@ class Festival(models.Model):
         return reverse('festival_detail', kwargs={ 'slug': self.slug })
 
 class Concert(models.Model):
+    class Meta:
+        ordering = ('aware_start_time',)
     create_date = models.DateTimeField(auto_now_add=True)
     modify_date = models.DateTimeField(auto_now=True)
     festival = models.ForeignKey(Festival, blank=True, null=True,
