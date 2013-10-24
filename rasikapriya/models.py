@@ -6,6 +6,10 @@ import string
 from .widgets import PlacesAutocompleteWidget
 from django.core.exceptions import ValidationError
 import urllib
+from .utils import geocode, time_zone
+import pytz
+from django.conf import settings
+import datetime
 
 class Instrument(models.Model):
     slug = AutoSlugField(unique=True, populate_from='name')
@@ -57,6 +61,13 @@ class Venue(models.Model):
     name = models.CharField(max_length=255, blank=True)
     address = models.TextField()
     home_page = models.URLField(blank=True)
+    time_zone = models.CharField(max_length=255, editable=False, blank=True)
+
+    def clean(self):
+        location = geocode(self.address)
+        tz_name = time_zone(location)
+        if tz_name:
+            self.time_zone = tz_name
 
     @property
     def full_address(self):
@@ -140,6 +151,8 @@ class Concert(models.Model):
     date = models.DateField()
     start_time = models.TimeField()
     end_time = models.TimeField(blank=True, null=True)
+    aware_start_time = models.DateTimeField(editable=False)
+    aware_end_time = models.DateTimeField(blank=True, null=True, editable=False)
     artists = models.ManyToManyField(Artist, through='Performance')
     cached_venue = models.ForeignKey(Venue, editable=False,
             help_text=u"""The venue could come from either self.venue,
@@ -163,6 +176,13 @@ class Concert(models.Model):
             raise ValidationError(u"""Concert needs to have a venue; either
                     by itself, or from the concert's festival, or from the
                     concert's organizer.""")
+        time_zone = self.cached_venue.time_zone
+        if not time_zone:
+            time_zone = settings.TIME_ZONE
+        tzobj = pytz.timezone(time_zone)
+        self.aware_start_time = tzobj.localize(datetime.datetime.combine(self.date, self.start_time))
+        if self.end_time:
+            self.aware_end_time = tzobj.localize(datetime.datetime.combine(self.date, self.end_time))
 
     def __unicode__(self):
         artists = ', '.join(unicode(a) for a in self.artists.all())

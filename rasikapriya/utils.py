@@ -3,25 +3,46 @@ import sys
 import requests
 import argparse
 from django.conf import settings
-from rasikapriya.models import Artist, Instrument, Venue
+import logging
+logger = logging.getLogger(__name__)
 
 def geocode(address):
+    if not address:
+        return None
     params = {
         'address': address,
         'sensor': 'false',
     }
     request = requests.get('https://maps.googleapis.com/maps/api/geocode/json', params=params)
-    print request.url
+    logger.debug('Geocode query URL {}'.format(request.url))
     response = request.json()
     status = response['status']
     if status != 'OK':
-        print 'Geocode was not successful for the following reason: ', status
-        return
+        logger.warning('Geocode was not successful for the following reason: {}'.format(status))
+        logger.warning('The address geocoded was {}'.format(address))
+        return None
     location = response['results'][0]['geometry']['location']
-    print response
-    print location
-    print response['results'][0]['formatted_address']
-    print response['results'][0]['address_components']
+    return location
+#     print response['results'][0]['formatted_address']
+#     print response['results'][0]['address_components']
+
+def time_zone(location):
+    if not location:
+        return None
+    latlng = '%f,%f' % (location['lat'], location['lng'])
+    params = {
+        'location': latlng,
+        'timestamp': 0,
+        'sensor': 'false',
+    }
+    request = requests.get('https://maps.googleapis.com/maps/api/timezone/json', params=params)
+    response = request.json()
+    status = response['status']
+    if status != 'OK':
+        logger.warning('Timezone query was not successful for the following reason: {}'.format(status))
+        logger.warning('The location was {}'.format(latlng))
+        return None
+    return response['timeZoneId']
 
 def reverse_geocode(location):
     latlng = '%f,%f' % (location['lat'], location['lng'])
@@ -81,6 +102,7 @@ def update_artist_details(artist):
         break
 
 def do_all():
+    from .models import Artist
     for artist in Artist.objects.filter(home_page__exact='').filter(description__exact=''):
         update_artist_details(artist)
 
