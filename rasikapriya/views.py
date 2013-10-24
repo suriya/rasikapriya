@@ -1,7 +1,7 @@
 
 from django.views.generic import (DateDetailView, DetailView, ListView,
         DayArchiveView, TodayArchiveView)
-from .models import Concert, Artist, Instrument, Venue
+from .models import Concert, Artist, Instrument, Venue, Festival
 from django.shortcuts import get_object_or_404
 
 class DateFormat:
@@ -69,6 +69,9 @@ class ArtistList(ListView):
     model = Artist
     paginate_by = 10
 
+    def get_queryset(self):
+        return Artist.objects.filter(concert__isnull=False)
+
 class VenueDetail(ListView):
     # Making this a ListView so that we get pagination for free.
     paginate_by = 10
@@ -96,3 +99,36 @@ class VenueDetail(ListView):
             'venue': venue,
         })
         return context_data
+
+class FestivalDetail(ListView):
+    # Making this a ListView so that we get pagination for free.
+    paginate_by = 10
+    context_object_name = 'concert_list'
+    template_name = 'rasikapriya/festival_detail.html'
+
+    def __init__(self, **kwargs):
+        super(FestivalDetail, self).__init__(**kwargs)
+        self.festival_from_url = None
+
+    def get_festival_from_url(self):
+        if not self.festival_from_url:
+            slug = self.kwargs['slug']
+            self.festival_from_url = get_object_or_404(Festival, slug=slug)
+        return self.festival_from_url
+
+    def get_queryset(self):
+        festival = self.get_festival_from_url()
+        return festival.concert_set.all()
+
+    def get_context_data(self, **kwargs):
+        festival = self.get_festival_from_url()
+        context_data = super(FestivalDetail, self).get_context_data(**kwargs)
+        context_data.update({
+            'festival': festival,
+        })
+        return context_data
+
+class FestivalList(ListView):
+    model = Festival
+    paginate_by = 10
+    context_object_name = 'festival_list'

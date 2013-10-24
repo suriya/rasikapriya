@@ -43,7 +43,8 @@ def reverse_geocode(location):
     print response['results'][0]['address_components']
 
 def get_home_page(artist):
-    search_string = '%s carnatic music' % artist
+    instruments = u' '.join(unicode(i) for i in artist.instruments)
+    search_string = u'%s music %s' % (artist, instruments)
     params = {
         'v': '1.0',
         'q': search_string,
@@ -63,6 +64,8 @@ def get_url_summary(url):
     return r.json()['sm_api_content']
 
 def update_artist_details(artist):
+    if not artist.instruments:
+        return
     search_results = get_home_page(artist)
     for url in search_results:
         if 'youtube' in url:

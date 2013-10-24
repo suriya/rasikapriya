@@ -4,7 +4,7 @@ from django.conf.urls import patterns, include, url
 from django.core.urlresolvers import reverse_lazy
 from .views import (ConcertDateDetail, ConcertList, ConcertTodayArchive,
         ConcertDayArchive, InstrumentDetail, ArtistDetail, ArtistList,
-        VenueDetail)
+        VenueDetail, FestivalDetail, FestivalList)
 from .models import Concert, Artist, Instrument
 from bsct import views
 
@@ -34,4 +34,7 @@ urlpatterns = patterns('',
     myurl(r'^instruments/{0}/$'.format(SLUG), InstrumentDetail),
 
     myurl(r'^venues/{0}/$'.format(SLUG), VenueDetail),
+
+    myurl(r'^festivals/$', FestivalList),
+    myurl(r'^festivals/{0}/$'.format(SLUG), FestivalDetail),
 )

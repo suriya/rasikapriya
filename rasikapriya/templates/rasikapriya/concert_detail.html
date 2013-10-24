@@ -12,10 +12,15 @@ Classical music concert : {{ concert }}
         {{ main_performer.instrument }} concert by {{ main_performer.artist }}
     {% endwith %}
 </h2>
-<h3 class="concert-date">
+<h4 class="concert-date">
     {{ concert.date }} at
         <a href="{{ concert.cached_venue.get_absolute_url }}">{{ concert.cached_venue }}</a>
-</h3>
+</h4>
+{% if concert.festival %}
+<h4 class="concert-festival">
+    This concert is part of <a href="{{ concert.festival.get_absolute_url }}">{{ concert.festival }}</a>.
+</h4>
+{% endif %}
 <div class="container"><div class="row">
     <div class="span8">
         <table class = "table table-condensed" >
@@ -46,13 +51,6 @@ Classical music concert : {{ concert }}
                 {% include 'rasikapriya/venue_map.html' with venue=concert.cached_venue %}
             </td>
         </tr>
-        {% if concert.festival %}
-        <tr>
-            <td>
-                Other concerts in this festival.
-            </td>
-        </tr>
-        {% endif %}
         </table>
     </div>
 </div></div>

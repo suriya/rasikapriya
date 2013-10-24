@@ -119,6 +119,9 @@ class Festival(models.Model):
     def __unicode__(self):
         return self.full_name
 
+    def get_absolute_url(self):
+        return reverse('festival_detail', kwargs={ 'slug': self.slug })
+
 class Concert(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
     modify_date = models.DateTimeField(auto_now=True)

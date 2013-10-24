@@ -23,6 +23,14 @@
                 No description found :(
             {% endif %}
         </div>
+        <h3>Festivals at this venue</h3>
+        <table class="table table-striped">
+        {% for festival in venue.festival_set.all %}
+            <tr> <td>
+                <a href="{{ festival.get_absolute_url }}">{{ festival }}</a>
+            </td> </tr>
+        {% endfor %}
+        </table>
         <h3>Concerts at this venue</h3>
         <table class="table table-striped">
         {% for concert in venue.concert_set.all %}

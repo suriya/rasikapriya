@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}
+    Classical Music Database
+{% endblock %}
+{% block content %}
+<div class="container"><div class="row"><div class="span8">
+This page is just a place holder. We need to fill it with useful content. For now, click on the links below.
+<ul>
+  <li> <a href="{% url 'artist_list' %}">List of all artists.</a> </li>
+  <li> <a href="{% url 'concert_list' %}">List of all concerts.</a> </li>
+  <li> <a href="{% url 'concert_today_archive' %}">Today's concerts.</a> </li>
+  <li> <a href="{% url 'festival_list' %}">List of all music festivals.</a> </li>
+</ul>
+</div></div></div>
+{% endblock %}

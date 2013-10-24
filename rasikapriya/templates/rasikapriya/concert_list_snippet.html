@@ -12,6 +12,11 @@
         - {{ concert.end_time }}
     {% endif %}
 </div>
+{% if concert.festival %}
+    <div class="concert-festival">
+        <a href="{{ concert.festival.get_absolute_url }}">{{ concert.festival }}</a>
+    </div>
+{% endif %}
 <div class="concert-venue">
     <a href="{{ concert.cached_venue.get_absolute_url }}">{{ concert.cached_venue }}</a>
 </div>
