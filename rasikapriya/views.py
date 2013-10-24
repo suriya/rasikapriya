@@ -1,4 +1,5 @@
 
+from django.http import Http404
 from django.views.generic import (DateDetailView, DetailView, ListView,
         DayArchiveView, TodayArchiveView)
 from .models import Concert, Artist, Instrument, Venue, Festival
@@ -13,6 +14,13 @@ class ConcertDateDetail(DateFormat, DetailView):
     model = Concert
     context_object_name = 'concert'
     date_field = 'date'
+
+    def get_object(self, queryset=None):
+        concert = super(ConcertDateDetail, self).get_object(queryset)
+        for field in [ 'year', 'month', 'day' ]:
+            if (str(getattr(concert.date, field)) != self.kwargs.get(field, '')):
+                raise Http404("No concert found matching the query")
+        return concert
 
 class ConcertDayArchive(DateFormat, DayArchiveView):
     model = Concert
